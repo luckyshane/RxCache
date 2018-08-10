@@ -36,6 +36,14 @@ class LruMemoryCache {
                 }
                 return integer;
             }
+
+            @Override
+            protected void entryRemoved(boolean evicted, String key, Object oldValue, Object newValue) {
+                if (evicted) {
+                    memorySizeMap.remove(key);
+                    timestampMap.remove(key);
+                }
+            }
         };
     }
 
